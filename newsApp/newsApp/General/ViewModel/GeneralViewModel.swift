@@ -83,33 +83,4 @@ final class GeneralViewModel: GeneralViewModelProtocol {
         return articles.map { ArticleCellViewModel(article: $0)
         }
     }
-    
-    private func setupMockObjects() {
-        articles = [
-            ArticleCellViewModel(article: ArticleResponseObject(title: "First object title",
-                                                                description: "First object description in the mock object",
-                                                                urlToImage: "...",
-                                                                date: "12.10.2014"))
-            //            ArticleResponseObject(title: "First object title",
-            //                                  description: "First object description in the mock object",
-            //                                  urlToImage: "...",
-            //                                  date: "12.10.2014"),
-            //            ArticleResponseObject(title: "Second object title",
-            //                                  description: "Second object description in the mock object",
-            //                                  urlToImage: "...",
-            //                                  date: "12.10.2014"),
-            //            ArticleResponseObject(title: "Third object title",
-            //                                  description: "Third object description in the mock object",
-            //                                  urlToImage: "...",
-            //                                  date: "12.10.2014"),
-            //            ArticleResponseObject(title: "Fourth object title",
-            //                                  description: "Fourth object description in the mock object",
-            //                                  urlToImage: "...",
-            //                                  date: "12.10.2014"),
-            //            ArticleResponseObject(title: "Fifth object title",
-            //                                  description: "Fifth object description in the mock object",
-            //                                  urlToImage: "...",
-            //                                  date: "12.10.2014"),
-        ]
-    }
 }

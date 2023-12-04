@@ -43,21 +43,14 @@ final class GeneralViewController: UIViewController {
     init(viewModel: GeneralViewModelProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
+        collectionView.register(GeneralCollectionViewCell.self,
+                                forCellWithReuseIdentifier: "GeneralCollectionViewCell")
+        setupUI()
         self.setupViewModel()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    // MARK: - Life cycle
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        setupUI()
-        collectionView.register(GeneralCollectionViewCell.self,
-                                forCellWithReuseIdentifier: "GeneralCollectionViewCell")
-        
     }
     
     // MARK: - Private methods
