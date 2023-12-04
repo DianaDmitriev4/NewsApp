@@ -15,12 +15,13 @@ final class TabBarController: UITabBarController {
         
         view.tintColor = .black
         setupViewControllers()
+        setupTabBar()
     }
     
     // MARK: Private methods
     private func setupViewControllers() {
         viewControllers = [
-            setupNavigationController(rootViewController: GeneralViewController(),
+            setupNavigationController(rootViewController: GeneralViewController(viewModel: GeneralViewModel()),
                                       image: UIImage(systemName: "newspaper") ?? UIImage.add,
                                       title: "General"),
             setupNavigationController(rootViewController: BusinessViewController(),
@@ -37,11 +38,18 @@ final class TabBarController: UITabBarController {
                                            title: String) -> UINavigationController {
         let navigationController = UINavigationController(rootViewController: rootViewController)
         
-        navigationController.tabBarItem.title = title.localized
+        navigationController.tabBarItem.title = title
         navigationController.tabBarItem.image = image
-        rootViewController.navigationItem.title = title.localized
+        rootViewController.navigationItem.title = title
         navigationController.navigationBar.prefersLargeTitles = true
         
         return navigationController
+    }
+    
+    private func setupTabBar() {
+    let appearance = UITabBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        tabBar.scrollEdgeAppearance = appearance
+        view.tintColor = .black
     }
 }
