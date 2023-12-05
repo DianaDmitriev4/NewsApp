@@ -11,11 +11,21 @@ final class ApiManager {
     
     private static let apiKey = "6e6f3b9fa1184eb9b83dc6dc65042fc3"
     private static let baseUrl = "https://newsapi.org/v2/"
-    private static let path = "everything"
+    private static let path = "top-headlines"
     
     // Create url path and make request
-    static func getNews(completion: @escaping (Result<[ArticleResponseObject], Error>) -> ()) {
-        let stringUrl = baseUrl + path + "?sources=abc-news&language=en" + "&apiKey=\(apiKey)"
+    static func getAnyNews(sourcesInUrl: SourceInUrl,
+                           completion: @escaping (Result<[ArticleResponseObject], Error>) -> ()) {
+        var stringUrl = ""
+        
+        switch sourcesInUrl {
+        case .business:
+            stringUrl = baseUrl + path + "?category=business&language=en" + "&apiKey=\(apiKey)"
+        case .general:
+            stringUrl = baseUrl + path + "?category=general&language=en" + "&apiKey=\(apiKey)"
+        case .technology:
+            stringUrl = baseUrl + path + "?category=technology&language=en" + "&apiKey=\(apiKey)"
+        }
         
         guard let url = URL(string: stringUrl) else { return }
         
@@ -49,9 +59,9 @@ final class ApiManager {
     private static func handleResponse(data: Data?,
                                        error: Error?,
                                        completion: @escaping (Result<[ArticleResponseObject], Error>) -> ()) {
-        if let error = error{
+        if let error {
             completion(.failure(NetworkingError.networkingError(error)))
-        } else if let data = data {
+        } else if let data {
             do {
                 let model = try JSONDecoder().decode(NewsResponseObject.self,
                                      from: data)
@@ -63,5 +73,9 @@ final class ApiManager {
         } else {
             completion(.failure(NetworkingError.unknown))
         }
+    }
+    
+    enum SourceInUrl {
+        case general, business, technology
     }
 }
