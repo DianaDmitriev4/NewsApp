@@ -1,5 +1,5 @@
 //
-//  BusinessViewModel.swift
+//  TechnologyViewModel.swift
 //  newsApp
 //
 //  Created by User on 05.12.2023.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol BusinessViewModelProtocol {
+protocol TechnologyViewModelProtocol {
     var reloadData: (() -> Void)? { get set }
     var showError: ((String) -> Void)? { get set }
     var reloadCell: ((Int) -> Void)? { get set }
@@ -17,7 +17,7 @@ protocol BusinessViewModelProtocol {
     func getArticle(for row: Int) -> ArticleCellViewModel
 }
 
-final class BusinessViewModel: BusinessViewModelProtocol {
+final class TechnologyViewModel: TechnologyViewModelProtocol {
     var reloadData: (() -> Void)?
     var reloadCell: ((Int) -> Void)?
     var showError: ((String) -> Void)?
@@ -44,7 +44,7 @@ final class BusinessViewModel: BusinessViewModelProtocol {
     }
     
     private func loadData() {
-        ApiManager.getAnyNews(sourcesInUrl: .business) { [weak self] result in
+        ApiManager.getAnyNews(sourcesInUrl: .technology) { [weak self] result in
             guard let self else { return }
             
             switch result {
@@ -77,6 +77,7 @@ final class BusinessViewModel: BusinessViewModelProtocol {
             }
         }
     }
+    
     
     private func convertToCellViewModel(_ articles: [ArticleResponseObject]) -> [ArticleCellViewModel] {
         return articles.map { ArticleCellViewModel(article: $0)

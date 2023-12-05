@@ -39,7 +39,7 @@ final class BusinessViewController: UIViewController {
     // MARK: - Initialization
     init(viewModel: BusinessViewModelProtocol) {
         self.viewModel = viewModel
-    
+        
         super.init(nibName: nil, bundle: nil)
         collectionView.register(GeneralCollectionViewCell.self,
                                 forCellWithReuseIdentifier: "GeneralCollectionViewCell")
@@ -100,21 +100,21 @@ extension BusinessViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-       
+        
         let article = viewModel.getArticle(for: indexPath.row)
         
-            if indexPath.section == 0 {
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "GeneralCollectionViewCell",
+        if indexPath.section == 0 {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "GeneralCollectionViewCell",
                                                           for: indexPath) as? GeneralCollectionViewCell
-                let article = viewModel.getArticle(for: 0)
-                cell?.set(article: article)
-                
-                return cell ?? UICollectionViewCell()
-            } else {
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DetailsCollectionViewCell", for: indexPath) as? DetailsCollectionViewCell
-                cell?.set(article: article)
-                return cell ?? UICollectionViewCell()
-            }
+            let article = viewModel.getArticle(for: 0)
+            cell?.set(article: article)
+            
+            return cell ?? UICollectionViewCell()
+        } else {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DetailsCollectionViewCell", for: indexPath) as? DetailsCollectionViewCell
+            cell?.set(article: article)
+            return cell ?? UICollectionViewCell()
+        }
     }
 }
 

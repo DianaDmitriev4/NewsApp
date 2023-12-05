@@ -81,6 +81,5 @@ final class GeneralViewModel: GeneralViewModelProtocol {
     private func convertToCellViewModel(_ articles: [ArticleResponseObject]) -> [ArticleCellViewModel] {
         return articles.map { ArticleCellViewModel(article: $0)
         }
-
     }
 }

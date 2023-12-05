@@ -70,7 +70,7 @@ final class DetailsCollectionViewCell: UICollectionViewCell {
             imageView,
             titleLabel,
             descriptionLabel
-                           ])
+        ])
         
         setupConstraints()
     }
