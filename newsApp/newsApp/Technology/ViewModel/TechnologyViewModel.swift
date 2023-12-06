@@ -15,6 +15,7 @@ protocol TechnologyViewModelProtocol {
     var numberOfCells: Int { get }
     
     func getArticle(for row: Int) -> ArticleCellViewModel
+    func loadData()
 }
 
 final class TechnologyViewModel: TechnologyViewModelProtocol {
@@ -35,15 +36,11 @@ final class TechnologyViewModel: TechnologyViewModelProtocol {
         }
     }
     
-    init() {
-        loadData()
-    }
-    
     func getArticle(for row: Int) -> ArticleCellViewModel {
         return articles[row]
     }
     
-    private func loadData() {
+    func loadData() {
         ApiManager.getAnyNews(sourcesInUrl: .technology) { [weak self] result in
             guard let self else { return }
             

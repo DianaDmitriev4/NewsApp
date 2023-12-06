@@ -39,20 +39,30 @@ final class BusinessViewController: UIViewController {
     // MARK: - Initialization
     init(viewModel: BusinessViewModelProtocol) {
         self.viewModel = viewModel
-        
+    
         super.init(nibName: nil, bundle: nil)
-        collectionView.register(GeneralCollectionViewCell.self,
-                                forCellWithReuseIdentifier: "GeneralCollectionViewCell")
         
-        collectionView.register(DetailsCollectionViewCell.self,
-                                forCellWithReuseIdentifier: "DetailsCollectionViewCell")
-        setupUI()
         setupViewModel()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    // MARK: - Life Cycle
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        collectionView.register(GeneralCollectionViewCell.self,
+                                forCellWithReuseIdentifier: "GeneralCollectionViewCell")
+        
+        collectionView.register(DetailsCollectionViewCell.self,
+                                forCellWithReuseIdentifier: "DetailsCollectionViewCell")
+        setupUI()
+        viewModel.loadData()
+    }
+    
+    
     
     // MARK: - Private methods
     private func setupViewModel() {
@@ -124,7 +134,7 @@ extension BusinessViewController: UICollectionViewDataSource {
 // MARK: - UICollectionViewDelegate
 extension BusinessViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let article = viewModel.getArticle(for: indexPath.row)
+        let article = viewModel.getArticle(for: indexPath.section == 0 ? 0 : indexPath.row + 1)
         navigationController?.pushViewController(NewsVC(viewModel: NewsViewModel(article: article)), animated: true)
     }
 }

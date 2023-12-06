@@ -11,6 +11,7 @@ protocol BusinessViewModelProtocol {
     var reloadData: (() -> Void)? { get set }
     var showError: ((String) -> Void)? { get set }
     var reloadCell: ((Int) -> Void)? { get set }
+    func loadData()
     
     var numberOfCells: Int { get }
     
@@ -35,15 +36,11 @@ final class BusinessViewModel: BusinessViewModelProtocol {
         }
     }
     
-    init() {
-        loadData()
-    }
-    
     func getArticle(for row: Int) -> ArticleCellViewModel {
         return articles[row]
     }
     
-    private func loadData() {
+     func loadData() {
         ApiManager.getAnyNews(sourcesInUrl: .business) { [weak self] result in
             guard let self else { return }
             

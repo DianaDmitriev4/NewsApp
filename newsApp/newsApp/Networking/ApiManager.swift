@@ -8,6 +8,11 @@
 import UIKit
 
 final class ApiManager {
+    enum SourceInUrl: String {
+        case general = "general"
+        case business = "business"
+        case technology = "technology"
+    }
     
     private static let apiKey = "6e6f3b9fa1184eb9b83dc6dc65042fc3"
     private static let baseUrl = "https://newsapi.org/v2/"
@@ -16,16 +21,7 @@ final class ApiManager {
     // Create url path and make request
     static func getAnyNews(sourcesInUrl: SourceInUrl,
                            completion: @escaping (Result<[ArticleResponseObject], Error>) -> ()) {
-        var stringUrl = ""
-        
-        switch sourcesInUrl {
-        case .business:
-            stringUrl = baseUrl + path + "?category=business&language=en" + "&apiKey=\(apiKey)"
-        case .general:
-            stringUrl = baseUrl + path + "?category=general&language=en" + "&apiKey=\(apiKey)"
-        case .technology:
-            stringUrl = baseUrl + path + "?category=technology&language=en" + "&apiKey=\(apiKey)"
-        }
+        let stringUrl = baseUrl + path + "?category=\(sourcesInUrl.rawValue)&language=en" + "&apiKey=\(apiKey)"
         
         guard let url = URL(string: stringUrl) else { return }
         
@@ -64,7 +60,7 @@ final class ApiManager {
         } else if let data {
             do {
                 let model = try JSONDecoder().decode(NewsResponseObject.self,
-                                     from: data)
+                                                     from: data)
                 completion(.success(model.articles))
             }
             catch let decodeError {
@@ -73,9 +69,5 @@ final class ApiManager {
         } else {
             completion(.failure(NetworkingError.unknown))
         }
-    }
-    
-    enum SourceInUrl {
-        case general, business, technology
     }
 }
