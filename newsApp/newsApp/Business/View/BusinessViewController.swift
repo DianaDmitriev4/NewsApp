@@ -90,19 +90,19 @@ final class BusinessViewController: UIViewController {
 // MARK: - UICollectionViewDataSource
 extension BusinessViewController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        2
+        viewModel.numberOfCells > 1 ? 2 : 1
     }
     
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
-        section == 0 ? 1 : viewModel.numberOfCells
+        if viewModel.numberOfCells > 1 {
+            return section == 0 ? 1 : viewModel.numberOfCells - 1
+        }
+        return viewModel.numberOfCells
     }
     
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
-        let article = viewModel.getArticle(for: indexPath.row)
-        
         if indexPath.section == 0 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "GeneralCollectionViewCell",
                                                           for: indexPath) as? GeneralCollectionViewCell
@@ -111,8 +111,11 @@ extension BusinessViewController: UICollectionViewDataSource {
             
             return cell ?? UICollectionViewCell()
         } else {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DetailsCollectionViewCell", for: indexPath) as? DetailsCollectionViewCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DetailsCollectionViewCell", 
+                                                          for: indexPath) as? DetailsCollectionViewCell
+            let article = viewModel.getArticle(for: indexPath.row + 1)
             cell?.set(article: article)
+            
             return cell ?? UICollectionViewCell()
         }
     }
