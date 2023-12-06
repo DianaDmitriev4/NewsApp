@@ -116,6 +116,7 @@ extension BusinessViewController: UICollectionViewDataSource {
         if indexPath.section == 0 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "GeneralCollectionViewCell",
                                                           for: indexPath) as? GeneralCollectionViewCell
+            
             let article = viewModel.getArticle(for: 0)
             cell?.set(article: article)
             
@@ -123,6 +124,7 @@ extension BusinessViewController: UICollectionViewDataSource {
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DetailsCollectionViewCell", 
                                                           for: indexPath) as? DetailsCollectionViewCell
+            
             let article = viewModel.getArticle(for: indexPath.row + 1)
             cell?.set(article: article)
             

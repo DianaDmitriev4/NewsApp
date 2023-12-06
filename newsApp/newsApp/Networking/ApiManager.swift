@@ -58,6 +58,9 @@ final class ApiManager {
         if let error {
             completion(.failure(NetworkingError.networkingError(error)))
         } else if let data {
+            // Чтобы посмотреть что пришло с сервера в мэсседже. Преобразовываем ответ с сервера в json объект
+            let json = try? JSONSerialization.jsonObject(with: data, options: [])
+            print(json ?? "")
             do {
                 let model = try JSONDecoder().decode(NewsResponseObject.self,
                                                      from: data)
