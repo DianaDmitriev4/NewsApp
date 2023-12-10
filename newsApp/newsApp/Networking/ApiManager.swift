@@ -20,8 +20,15 @@ final class ApiManager {
     
     // Create url path and make request
     static func getAnyNews(sourcesInUrl: SourceInUrl,
+                           page: Int,
+                           searchText: String?,
                            completion: @escaping (Result<[ArticleResponseObject], Error>) -> ()) {
-        let stringUrl = baseUrl + path + "?category=\(sourcesInUrl.rawValue)&language=en" + "&apiKey=\(apiKey)"
+        var searchParam = ""
+        if let searchText {
+            searchParam = "&q=\(searchText)"
+        }
+        
+        let stringUrl = baseUrl + path + "?category=\(sourcesInUrl.rawValue)&language=en&page=\(page)" + searchParam + "&apiKey=\(apiKey)"
         
         guard let url = URL(string: stringUrl) else { return }
         
