@@ -73,8 +73,11 @@ final class BusinessViewController: UIViewController {
         }
         
         viewModel.showError = { error in
-            // TODO: show alert with error
-            print(error)
+            let alert = UIAlertController(title: "Error",
+                                          message: error,
+                                          preferredStyle: .alert)
+            let action = UIAlertAction(title: "Ok", style: .cancel)
+            alert.addAction(action)
         }
     }
     

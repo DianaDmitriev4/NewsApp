@@ -98,7 +98,11 @@ class NewsListViewModel: NewsListViewModelProtocol {
         sections = [
             TableCollectionViewSection(items:[ArticleCellViewModel(article: ArticleResponseObject(title: "First object title",
                                                                                                   description: "some long description some long description some long description some long description ",
-                                                                                                  urlToImage: "...", date: "14.11.2022"))])
+                                                                                                  urlToImage: "...", date: "14.11.2022")),
+                                              ArticleCellViewModel(article: ArticleResponseObject(title: "First object title",
+                                                                                                  description: "some long description some long description some long description some long description ",
+                                                                                                  urlToImage: "...", date: "14.11.2022"))
+                                             ])
         ]
     }
 }

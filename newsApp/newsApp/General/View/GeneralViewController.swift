@@ -70,8 +70,11 @@ final class GeneralViewController: UIViewController {
         }
         
         viewModel.showError = { error in
-            // TODO: show alert with error
-            print(error)
+            let alert = UIAlertController(title: "Error",
+                                          message: error,
+                                          preferredStyle: .alert)
+            let action = UIAlertAction(title: "Ok", style: .cancel)
+            alert.addAction(action)
         }
     }
     
@@ -121,8 +124,10 @@ extension GeneralViewController: UICollectionViewDataSource {
 
 // MARK: - UICollectionViewDelegate
 extension GeneralViewController: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    func collectionView(_ collectionView: UICollectionView, 
+                        didSelectItemAt indexPath: IndexPath) {
         guard let article = viewModel.sections[indexPath.section].items[indexPath.row] as? ArticleCellViewModel else { return }
+        
         navigationController?.pushViewController(NewsVC(viewModel: NewsViewModel(article: article)), animated: true)
     }
     
@@ -143,10 +148,11 @@ extension GeneralViewController: UISearchBarDelegate {
         searchBar.searchTextField.resignFirstResponder()
     }
     
-    func searchBar(_ searchBar: UISearchBar, 
+    func searchBar(_ searchBar: UISearchBar,
                    textDidChange searchText: String) {
         if searchText.isEmpty {
             viewModel.loadData(searchText: nil)
         }
     }
 }
+
