@@ -23,8 +23,6 @@ final class TechnologyViewController: UIViewController {
         
         collectionView.showsHorizontalScrollIndicator = false
         
-        collectionView.backgroundColor = .green
-        
         collectionView.dataSource = self
         collectionView.delegate = self
         

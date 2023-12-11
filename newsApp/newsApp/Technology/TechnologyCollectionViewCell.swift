@@ -14,8 +14,9 @@ final class TechnologyCollectionViewCell: UICollectionViewCell {
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
-
         imageView.clipsToBounds = true
+        
+        imageView.layer.cornerRadius = 5
         
         return imageView
     }()
@@ -47,7 +48,6 @@ final class TechnologyCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        backgroundColor = .blue
         setupUI()
     }
     
@@ -71,8 +71,6 @@ final class TechnologyCollectionViewCell: UICollectionViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        
-        self.layer.cornerRadius = 10
         self.layer.shadowRadius = 5
         self.layer.shadowOpacity = 0.3
         self.layer.shadowOffset = CGSize(width: 5, height: 8)

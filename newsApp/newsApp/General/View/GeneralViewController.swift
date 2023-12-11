@@ -57,6 +57,7 @@ final class GeneralViewController: UIViewController {
                                 forCellWithReuseIdentifier: "GeneralCollectionViewCell")
         setupUI()
         viewModel.loadData(searchText: nil)
+        hideKeyboardWhenTappedAround()
     }
     
     // MARK: - Private methods
@@ -124,7 +125,7 @@ extension GeneralViewController: UICollectionViewDataSource {
 
 // MARK: - UICollectionViewDelegate
 extension GeneralViewController: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, 
+    func collectionView(_ collectionView: UICollectionView,
                         didSelectItemAt indexPath: IndexPath) {
         guard let article = viewModel.sections[indexPath.section].items[indexPath.row] as? ArticleCellViewModel else { return }
         
@@ -156,3 +157,25 @@ extension GeneralViewController: UISearchBarDelegate {
     }
 }
 
+// MARK: -Hide keyboard
+extension GeneralViewController: UIGestureRecognizerDelegate {
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        if searchBar.resignFirstResponder() {
+            hideKeyboardWhenTappedAround()
+            return true
+        } else {
+            return false
+        }
+    }
+    
+    func hideKeyboardWhenTappedAround() {
+        let recognizer = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+        recognizer.delegate = self
+        view.addGestureRecognizer(recognizer)
+    }
+    
+    @objc func hideKeyboard() {
+        view.endEditing(true)
+    }
+}
