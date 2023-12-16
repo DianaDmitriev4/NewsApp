@@ -23,7 +23,7 @@ final class ArticleCellViewModel: TableCollectionViewItemsProtocol {
         if let formatDate = formatDate(dateString: self.date) {
             self.date = formatDate
         }
-            
+        
     }
     
     // MARK: -Private methods

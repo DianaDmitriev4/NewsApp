@@ -12,7 +12,7 @@ final class GeneralCollectionViewCell: UICollectionViewCell {
     
     // MARK: - GUI Variables
     private lazy var imageView: UIImageView = {
-       let imageView = UIImageView()
+        let imageView = UIImageView()
         
         return imageView
     }()
@@ -27,7 +27,7 @@ final class GeneralCollectionViewCell: UICollectionViewCell {
     }()
     
     private lazy var titleLabel: UILabel = {
-       let label = UILabel()
+        let label = UILabel()
         
         label.text = "Title"
         label.textColor = .white
@@ -64,7 +64,7 @@ final class GeneralCollectionViewCell: UICollectionViewCell {
         addSubview(blackView)
         addSubview(titleLabel)
         
-      setupConstraints()
+        setupConstraints()
     }
     
     private func setupConstraints() {

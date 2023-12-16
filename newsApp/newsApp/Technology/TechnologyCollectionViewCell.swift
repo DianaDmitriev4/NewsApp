@@ -39,7 +39,6 @@ final class TechnologyCollectionViewCell: UICollectionViewCell {
         label.textColor = .black
         label.font = .systemFont(ofSize: 14)
         label.numberOfLines = 2
-        label.lineBreakMode = .byCharWrapping
         
         return label
     }()
@@ -103,7 +102,6 @@ final class TechnologyCollectionViewCell: UICollectionViewCell {
         descriptionLabel.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(10)
             make.trailing.leading.equalToSuperview()
-            make.bottom.equalToSuperview().inset(20)
         }
     }
 }
