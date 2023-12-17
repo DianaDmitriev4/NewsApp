@@ -14,7 +14,6 @@ final class DetailsCollectionViewCell: UICollectionViewCell {
     private lazy var imageView: UIImageView = {
         let view = UIImageView()
         
-        view.image = UIImage(named: "news")
         view.contentMode = .scaleAspectFill
         view.clipsToBounds = true
         
@@ -26,7 +25,6 @@ final class DetailsCollectionViewCell: UICollectionViewCell {
         
         label.font = .boldSystemFont(ofSize: 16)
         label.textColor = .black
-        label.text = "Title here"
         label.numberOfLines = 2
         
         return label
@@ -37,7 +35,6 @@ final class DetailsCollectionViewCell: UICollectionViewCell {
         
         label.font = .systemFont(ofSize: 14)
         label.textColor = .gray
-        label.text = "Description for the news should be here. Please remove this mock text"
         label.numberOfLines = 2
         
         return label
@@ -54,13 +51,26 @@ final class DetailsCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Methods
+    func set(article: ArticleCellViewModel) {
+        titleLabel.text = article.title
+        descriptionLabel.text = article.description
+        
+        if let data = article.imageData,
+           let image = UIImage(data: data) {
+            imageView.image = image
+        } else {
+            imageView.image = UIImage(named: "news")
+        }
+    }
+    
     // MARK: - Private func
     private func setupUI() {
         addSubviews(views: [
             imageView,
             titleLabel,
             descriptionLabel
-                           ])
+        ])
         
         setupConstraints()
     }

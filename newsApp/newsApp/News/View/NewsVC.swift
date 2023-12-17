@@ -67,6 +67,7 @@ final class NewsVC: UIViewController {
     
     // MARK: - Properties
     private let viewModel: NewsViewModelProtocol
+    private let tabBar = TabBarController()
     
     // MARK: - Life cycle
     init(viewModel: NewsViewModelProtocol) {
@@ -133,11 +134,11 @@ final class NewsVC: UIViewController {
         imageView.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(30)
             make.height.equalTo(200)
-            make.top.equalTo(titleNameLabel.snp.bottom).offset(50)
+            make.top.equalTo(titleNameLabel.snp.bottom).offset(30)
         }
         
         descriptionLabel.snp.makeConstraints { make in
-            make.top.equalTo(imageView.snp.bottom).offset(50)
+            make.top.equalTo(imageView.snp.bottom).offset(30)
             make.trailing.leading.equalToSuperview().inset(30)
         }
         

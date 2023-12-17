@@ -8,14 +8,27 @@
 import UIKit
 
 final class ApiManager {
+    enum SourceInUrl: String {
+        case general = "general"
+        case business = "business"
+        case technology = "technology"
+    }
     
     private static let apiKey = "6e6f3b9fa1184eb9b83dc6dc65042fc3"
     private static let baseUrl = "https://newsapi.org/v2/"
-    private static let path = "everything"
+    private static let path = "top-headlines"
     
     // Create url path and make request
-    static func getNews(completion: @escaping (Result<[ArticleResponseObject], Error>) -> ()) {
-        let stringUrl = baseUrl + path + "?sources=abc-news&language=en" + "&apiKey=\(apiKey)"
+    static func getAnyNews(sourcesInUrl: SourceInUrl,
+                           page: Int,
+                           searchText: String?,
+                           completion: @escaping (Result<[ArticleResponseObject], Error>) -> ()) {
+        var searchParam = ""
+        if let searchText {
+            searchParam = "&q=\(searchText)"
+        }
+        
+        let stringUrl = baseUrl + path + "?category=\(sourcesInUrl.rawValue)&language=en&page=\(page)" + searchParam + "&apiKey=\(apiKey)"
         
         guard let url = URL(string: stringUrl) else { return }
         
@@ -49,12 +62,15 @@ final class ApiManager {
     private static func handleResponse(data: Data?,
                                        error: Error?,
                                        completion: @escaping (Result<[ArticleResponseObject], Error>) -> ()) {
-        if let error = error{
+        if let error {
             completion(.failure(NetworkingError.networkingError(error)))
-        } else if let data = data {
+        } else if let data {
+            // Чтобы посмотреть что пришло с сервера в мэсседже. Преобразовываем ответ с сервера в json объект
+            let json = try? JSONSerialization.jsonObject(with: data, options: [])
+            print(json ?? "")
             do {
                 let model = try JSONDecoder().decode(NewsResponseObject.self,
-                                     from: data)
+                                                     from: data)
                 completion(.success(model.articles))
             }
             catch let decodeError {
