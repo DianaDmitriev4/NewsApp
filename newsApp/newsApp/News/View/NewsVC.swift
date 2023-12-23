@@ -40,6 +40,7 @@ final class NewsVC: UIViewController {
     
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
+        
         scrollView.showsVerticalScrollIndicator = false
         
         return scrollView
@@ -67,7 +68,6 @@ final class NewsVC: UIViewController {
     
     // MARK: - Properties
     private let viewModel: NewsViewModelProtocol
-    private let tabBar = TabBarController()
     
     // MARK: - Life cycle
     init(viewModel: NewsViewModelProtocol) {
@@ -113,12 +113,12 @@ final class NewsVC: UIViewController {
     
     private func setupConstraints() {
         scrollView.snp.makeConstraints { make in
-            make.top.leading.trailing.equalToSuperview()
-            make.bottom.equalTo(view.safeAreaLayoutGuide)
+            make.edges.equalToSuperview()
         }
         
         contentView.snp.makeConstraints { make in
-            make.size.edges.equalToSuperview()
+            make.edges.equalToSuperview()
+            make.width.equalTo(scrollView.snp.width)
         }
         
         titleNameLabel.snp.makeConstraints { make in
@@ -132,9 +132,9 @@ final class NewsVC: UIViewController {
         }
         
         imageView.snp.makeConstraints { make in
+            make.top.equalTo(titleNameLabel.snp.bottom).offset(30)
             make.leading.trailing.equalToSuperview().inset(30)
             make.height.equalTo(200)
-            make.top.equalTo(titleNameLabel.snp.bottom).offset(30)
         }
         
         descriptionLabel.snp.makeConstraints { make in
