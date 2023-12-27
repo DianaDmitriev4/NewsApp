@@ -122,12 +122,7 @@ final class NewsVC: UIViewController {
         }
         
         titleNameLabel.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide)
-            make.trailing.leading.equalToSuperview().inset(30)
-        }
-        
-        publicationDateLabel.snp.makeConstraints { make in
-            make.top.equalTo(descriptionLabel.snp.bottom).offset(30)
+            make.top.equalToSuperview()
             make.trailing.leading.equalToSuperview().inset(30)
         }
         
@@ -142,5 +137,9 @@ final class NewsVC: UIViewController {
             make.trailing.leading.equalToSuperview().inset(30)
         }
         
+        publicationDateLabel.snp.makeConstraints { make in
+            make.top.equalTo(descriptionLabel.snp.bottom).offset(30)
+            make.trailing.leading.bottom.equalToSuperview().inset(30)
+        }
     }
 }
